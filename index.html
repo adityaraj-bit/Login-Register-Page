@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join Our Team | Secure Portal</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              surface: "#0e1422",
+              primary: "#2196F3",
+              secondary: "#FF5722",
+              tertiary: "#FFEB3B",
+            },
+            fontFamily: {
+              headline: ['"Plus Jakarta Sans"', "sans-serif"],
+              body: ['"Be Vietnam Pro"', "sans-serif"],
+            },
+            keyframes: {
+              shake: {
+                "0%, 100%": { transform: "translateX(0)" },
+                "25%": { transform: "translateX(-4px)" },
+                "75%": { transform: "translateX(4px)" },
+              },
+            },
+            animation: {
+              shake: "shake 0.2s ease-in-out 0s 2",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          @apply font-body text-white bg-[#070b14] antialiased min-h-screen relative transition-colors duration-500;
+        }
+        body.light-mode {
+          background-color: #f0f7ff !important;
+          color: #0f172a !important;
+        }
+        .light-mode .text-white,
+        .light-mode .text-white\/90,
+        .light-mode .text-white\/80 {
+          color: #0f172a !important;
+        }
+        .light-mode .text-gray-400,
+        .light-mode .text-gray-500 {
+          color: #475569 !important;
+        }
+        .light-mode button .text-white,
+        .light-mode .bg-gradient-to-r.text-white {
+          color: white !important;
+        }
+
+        .light-mode .glass-card {
+          background-color: rgba(255, 255, 255, 0.7) !important;
+          border-color: rgba(30, 58, 138, 0.15) !important;
+          box-shadow: 0 20px 50px rgba(30, 58, 138, 0.1) !important;
+        }
+        .light-mode .border-white\/10 {
+          border-color: rgba(30, 58, 138, 0.15) !important;
+        }
+        .light-mode .bg-white\/5,
+        .light-mode .bg-white\/10 {
+          background-color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .light-mode #register-section .input-field {
+          color: #0f172a !important;
+          border-bottom-color: rgba(30, 58, 138, 0.3) !important;
+        }
+        .light-mode #register-section .input-field::placeholder {
+          color: #64748b !important;
+        }
+
+        .light-mode #login-section .input-field {
+          background-color: rgba(255, 255, 255, 0.6) !important;
+          color: #0f172a !important;
+          border-color: rgba(30, 58, 138, 0.3) !important;
+        }
+        .light-mode #login-section .input-field::placeholder {
+          color: #64748b !important;
+        }
+
+        .light-mode #tab-nav {
+          background-color: #e2e8f0 !important;
+          border-color: rgba(30, 58, 138, 0.15) !important;
+        }
+        .light-mode #tab-nav::before {
+          background-color: #ffffff !important;
+          border-top-color: rgba(30, 58, 138, 0.1) !important;
+          box-shadow: 0 2px 10px rgba(30, 58, 138, 0.1) !important;
+        }
+
+        .light-mode .bg-blue-600\/10 {
+          background-color: rgba(59, 130, 246, 0.3) !important;
+        }
+        .light-mode .bg-blue-400\/10 {
+          background-color: rgba(96, 165, 250, 0.3) !important;
+        }
+        .light-mode .bg-orange-600\/10 {
+          background-color: rgba(59, 130, 246, 0.2) !important;
+        }
+        .light-mode svg.text-white\/90 {
+          color: #0f172a !important;
+        }
+
+        /* Orange to Blue Light Mode Mappings */
+        .light-mode #reg-submit-btn {
+          background-image: linear-gradient(
+            to right,
+            #3b82f6,
+            #2563eb
+          ) !important;
+          box-shadow: 0 0 20px rgba(37, 99, 235, 0.4) !important;
+        }
+        .light-mode #header-register h1 {
+          background-image: linear-gradient(
+            to bottom right,
+            #bfdbfe,
+            #60a5fa,
+            #3b82f6
+          ) !important;
+          filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.4)) !important;
+        }
+        .light-mode #reg-tab.active-tab {
+          color: #2563eb !important;
+        }
+        .light-mode #login-tab.active-tab {
+          background-image: linear-gradient(
+            to right,
+            #f97316,
+            #3b82f6
+          ) !important;
+          color: transparent !important;
+        }
+        .light-mode #register-section .input-field:focus {
+          border-bottom-color: #3b82f6 !important;
+          box-shadow: 0 1px 0 0 #3b82f6 !important;
+        }
+        .light-mode #login-submit-btn {
+          background-image: linear-gradient(
+            to right,
+            #6bb8f5,
+            #a3bded,
+            #fc9965
+          ) !important;
+        }
+      }
+      @layer components {
+        .glass-card {
+          @apply bg-[#151b2b]/80 backdrop-blur-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)];
+        }
+        .input-error {
+          @apply border-red-500 animate-shake;
+        }
+        .error-container {
+          @apply flex items-center gap-1.5 mt-1 opacity-0 transition-all duration-300 transform translate-y-[-5px] pointer-events-none;
+        }
+        .error-container.show {
+          @apply opacity-100 translate-y-0 text-red-500;
+        }
+        .error-text {
+          @apply text-[10px] font-bold uppercase tracking-wider;
+        }
+
+        #register-section .input-field {
+          @apply w-full bg-transparent border-b border-gray-600 px-1 py-1.5 text-white placeholder-gray-500 outline-none transition-all focus:border-orange-500 focus:shadow-[0_1px_0_0_#f97316];
+        }
+
+        #login-section .input-field {
+          @apply w-full bg-[#1b2234] border border-gray-600 rounded-2xl px-5 py-3 text-white placeholder-gray-500 outline-none transition-all focus:border-blue-400 focus:ring-1 focus:ring-blue-400;
+        }
+
+        .label-md {
+          @apply block text-[10px] font-bold text-gray-400 mb-1 tracking-widest uppercase;
+        }
+
+        #tab-nav {
+          @apply flex bg-[#111724] rounded-full p-1.5 mb-6 shadow-inner border border-white/5 mx-auto w-full relative;
+        }
+        #tab-nav::before {
+          content: "";
+          @apply absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] bg-[#1e2638] rounded-full transition-transform duration-300 shadow-[0_2px_10px_rgba(0,0,0,0.5)] border-t border-white/10 pointer-events-none z-0;
+          left: 6px;
+        }
+        #tab-nav:has(#login-tab.active-tab)::before {
+          transform: translateX(100%);
+        }
+        .tab-btn {
+          @apply flex-1 py-3 text-xs font-bold tracking-widest transition-all duration-300 text-gray-500 hover:text-white rounded-full z-10 relative;
+        }
+        .active-tab {
+          @apply text-white;
+        }
+        #reg-tab.active-tab {
+          @apply text-orange-400;
+        }
+        #login-tab.active-tab {
+          @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-orange-400;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+          @apply w-1.5;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          @apply bg-transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          @apply bg-white/20 rounded-full hover:bg-white/30 transition-all;
+        }
+      }
+    </style>
+  </head>
+  <body class="w-full h-full flex flex-col p-4 sm:p-8 lg:p-0">
+    <!-- Theme Toggle -->
+    <div class="fixed top-6 right-6 z-50">
+      <button
+        onclick="toggleTheme()"
+        class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-white/80 hover:text-white transition-all hover:scale-110 active:scale-95 shadow-lg group"
+      >
+        <svg
+          id="theme-icon"
+          class="w-6 h-6 transition-transform duration-500 group-hover:rotate-[360deg]"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <div
+        class="absolute top-0 right-0 w-[30rem] h-[30rem] bg-orange-600/10 rounded-full blur-[150px] transform translate-x-1/3 -translate-y-1/3"
+      ></div>
+      <div
+        class="absolute bottom-1/4 right-0 w-[40rem] h-[40rem] bg-blue-600/10 rounded-full blur-[150px] transform translate-x-1/4 translate-y-1/4"
+      ></div>
+      <div
+        class="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-blue-400/10 rounded-full blur-[150px] transform -translate-x-1/4 translate-y-1/4"
+      ></div>
+    </div>
+
+    <main id="main-container"
+      class="w-full min-h-screen flex flex-col lg:flex-row relative z-10 max-w-[1600px] mx-auto"
+    >
+      <section
+        class="w-full lg:w-[45%] h-full hidden lg:flex flex-col p-16 xl:p-24 relative"
+      >
+        <div
+          id="side-content"
+          class="h-full flex flex-col w-full relative z-10"
+        >
+          <!-- Top element -->
+          <div class="flex items-center gap-3 anim-reveal">
+            <svg
+              class="w-7 h-7 text-white/90"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <circle cx="12" cy="12" r="3"></circle>
+              <path
+                d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"
+              ></path>
+            </svg>
+            <div
+              class="text-[10px] font-semibold tracking-[0.2em] leading-tight text-white/90 uppercase"
+            >
+              Engineering<br />Collective
+            </div>
+          </div>
+
+          <!-- Middle element (Headers centered exactly inside remaining space) -->
+          <div class="flex-1 flex flex-col justify-center w-full">
+            <div
+              id="header-register"
+              class="header-group ml-8 lg:ml-16 xl:ml-24 mt-8 lg:mt-16 xl:mt-24"
+            >
+              <h1
+                class="text-[5rem] xl:text-[6.5rem] font-medium leading-[1.0] text-transparent bg-clip-text bg-gradient-to-br from-orange-200 via-orange-300 to-orange-500 drop-shadow-[0_0_20px_rgba(255,100,0,0.6)] tracking-wide"
+              >
+                JOIN OUR<br />TEAM
+              </h1>
+              <p
+                class="text-white/80 font-medium tracking-wide mt-8 text-sm xl:text-base max-w-md drop-shadow-md pr-8"
+              >
+                Build the next generation of secured infrastructure with a team
+                that values precision and growth.
+              </p>
+            </div>
+
+            <div
+              id="header-login"
+              class="header-group hidden opacity-0 w-full flex-col items-start ml-12 lg:ml-24 xl:ml-32"
+            >
+              <div class="relative w-56 h-56 mb-8">
+                <svg
+                  viewBox="0 0 200 200"
+                  class="w-full h-full drop-shadow-[0_0_20px_rgba(100,180,255,0.4)]"
+                >
+                  <defs>
+                    <linearGradient
+                      id="cubeTop"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="100%"
+                    >
+                      <stop offset="0%" stop-color="#fdc9b4" />
+                      <stop offset="100%" stop-color="#f88352" />
+                    </linearGradient>
+                    <linearGradient
+                      id="cubeLeft"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="100%"
+                    >
+                      <stop offset="0%" stop-color="#9bd4f3" />
+                      <stop offset="100%" stop-color="#3c8cdb" />
+                    </linearGradient>
+                    <linearGradient
+                      id="cubeRight"
+                      x1="0%"
+                      y1="0%"
+                      x2="0%"
+                      y2="100%"
+                    >
+                      <stop offset="0%" stop-color="#ddefbd" />
+                      <stop offset="100%" stop-color="#60a8e8" />
+                    </linearGradient>
+                  </defs>
+                  <polygon
+                    points="100,20 170,60 170,140 100,180 30,140 30,60"
+                    fill="none"
+                    class="stroke-white/10"
+                    stroke-width="1"
+                  />
+                  <path
+                    d="M30,60 L100,100 L100,180 L30,140 Z"
+                    fill="url(#cubeLeft)"
+                    opacity="0.9"
+                  />
+                  <path
+                    d="M170,60 L100,100 L100,180 L170,140 Z"
+                    fill="url(#cubeRight)"
+                    opacity="0.8"
+                  />
+                  <path
+                    d="M100,20 L170,60 L100,100 L30,60 Z"
+                    fill="url(#cubeTop)"
+                    opacity="0.95"
+                  />
+                  <path d="M100,60 L135,80 L100,100 L65,80 Z" fill="#13213c" />
+                  <path d="M65,80 L100,100 L100,140 L65,120 Z" fill="#081020" />
+                  <path
+                    d="M135,80 L100,100 L100,140 L135,120 Z"
+                    fill="#1a325a"
+                  />
+                </svg>
+              </div>
+              <h1
+                class="text-6xl xl:text-7xl font-light tracking-wide text-white leading-[1.0] drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]"
+              >
+                CORE<br />ACCESS
+              </h1>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="w-full lg:w-[55%] min-h-screen flex flex-col items-center justify-center relative p-4 sm:p-12 z-10"
+      >
+        <div
+          class="w-full max-w-[500px] glass-card rounded-[2rem] p-6 sm:p-10 mx-auto relative mb-20 lg:mb-0"
+        >
+          <div class="lg:hidden w-full mb-8 text-center anim-reveal">
+            <h1 id="mobile-title" class="text-3xl font-bold text-white mb-2">
+              Join Our Team
+            </h1>
+            <p
+              id="mobile-subtitle"
+              class="text-gray-400 text-sm font-medium tracking-wide"
+            >
+              Building the future together.
+            </p>
+          </div>
+
+          <div id="tab-nav" class="anim-reveal">
+            <button
+              onclick="switchTab('register')"
+              class="tab-btn active-tab"
+              id="reg-tab"
+            >
+              APPLY TO JOIN
+            </button>
+            <button onclick="switchTab('login')" class="tab-btn" id="login-tab">
+              MEMBER LOGIN
+            </button>
+          </div>
+
+          <div class="form-wrapper relative">
+            <div id="register-section" class="form-section">
+              <form
+                id="reg-form"
+                class="space-y-4"
+                onsubmit="event.preventDefault()"
+              >
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 anim-reveal">
+                  <div>
+                    <label class="label-md">First Name</label>
+                    <input
+                      type="text"
+                      id="regFirstName"
+                      class="input-field"
+                      placeholder="Aditya"
+                      onblur="validateField(this, 'name')"
+                      oninput="clearError(this)"
+                    />
+                    <div class="error-container">
+                      <span class="error-text">Letters only</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="label-md">Last Name</label>
+                    <input
+                      type="text"
+                      id="regLastName"
+                      class="input-field"
+                      placeholder="Raj"
+                      onblur="validateField(this, 'name')"
+                      oninput="clearError(this)"
+                    />
+                    <div class="error-container">
+                      <span class="error-text">Surnames!</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 anim-reveal">
+                  <div>
+                    <label class="label-md">Current Age</label>
+                    <input
+                      type="number"
+                      id="regAge"
+                      class="input-field"
+                      placeholder="30"
+                      onblur="validateField(this, 'age')"
+                      oninput="clearError(this)"
+                    />
+                    <div class="error-container">
+                      <span class="error-text">Between 0-150</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="label-md">Phone Line</label>
+                    <input
+                      type="text"
+                      id="regPhone"
+                      class="input-field"
+                      placeholder="9876543210"
+                      onblur="validateField(this, 'phone')"
+                      oninput="clearError(this)"
+                    />
+                    <div class="error-container">
+                      <span class="error-text">10 Digits</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 anim-reveal">
+                  <div>
+                    <label class="label-md">Corporate Email</label>
+                    <input
+                      type="email"
+                      id="regEmail"
+                      class="input-field"
+                      placeholder="name@gmail.com"
+                      onblur="validateField(this, 'email')"
+                      oninput="clearError(this)"
+                    />
+                    <div class="error-container">
+                      <span class="error-text">Domains!</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="label-md">Secured Password</label>
+                    <input
+                      type="password"
+                      id="regPassword"
+                      class="input-field"
+                      placeholder="••••••••"
+                      onblur="validateField(this, 'password')"
+                      oninput="clearError(this)"
+                    />
+                    <div class="error-container">
+                      <span class="error-text">Weak!</span>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  id="reg-submit-btn"
+                  onclick="handleRegister()"
+                  class="w-full bg-gradient-to-r from-orange-500 to-orange-600 outline-none text-white font-bold text-sm tracking-widest py-4 rounded-full mt-4 shadow-[0_0_20px_rgba(255,100,0,0.4)] transition-all hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  SUBMIT APPLICATION
+                </button>
+              </form>
+            </div>
+
+            <div id="login-section" class="form-section hidden opacity-0">
+              <form
+                id="login-form"
+                class="space-y-6"
+                onsubmit="event.preventDefault()"
+              >
+                <div>
+                  <label class="label-md">Team Email</label>
+                  <input
+                    type="email"
+                    id="loginEmail"
+                    class="input-field"
+                    placeholder="name@gmail.com"
+                    oninput="clearError(this)"
+                  />
+                </div>
+                <div>
+                  <label class="label-md">Secure Password</label>
+                  <input
+                    type="password"
+                    id="loginPass"
+                    class="input-field"
+                    placeholder="••••••••"
+                    oninput="clearError(this)"
+                  />
+                </div>
+                <button
+                  id="login-submit-btn"
+                  onclick="handleLogin()"
+                  class="w-full bg-gradient-to-r from-[#6bb8f5] via-[#a3bded] to-[#fc9965] bg-[length:200%_auto] bg-[position:left_center] hover:bg-[position:right_center] transition-all duration-500 text-white font-bold text-sm tracking-widest py-4 rounded-full mt-8 shadow-[0_4px_20px_rgba(100,200,255,0.4)] hover:shadow-[0_6px_25px_rgba(100,180,255,0.6)] hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  AUTHORIZE ACCESS
+                </button>
+              </form>
+            </div>
+
+            <div id="profile-section" class="form-section hidden opacity-0">
+              <div
+                class="bg-white/5 rounded-2xl p-6 shadow-inner border border-white/5 space-y-4 mb-6"
+              >
+                <div
+                  class="flex justify-between items-center border-b border-white/10 pb-3"
+                >
+                  <span
+                    class="text-gray-500 font-bold uppercase tracking-wider text-[9px]"
+                    >Member Name</span
+                  >
+                  <span id="profName" class="font-bold text-white text-base"
+                    >---</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center border-b border-white/10 pb-3"
+                >
+                  <span
+                    class="text-gray-500 font-bold uppercase tracking-wider text-[9px]"
+                    >Team Email</span
+                  >
+                  <span id="profEmail" class="font-bold text-white text-sm"
+                    >---</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center border-b border-white/10 pb-3"
+                >
+                  <span
+                    class="text-gray-500 font-bold uppercase tracking-wider text-[9px]"
+                    >Phone</span
+                  >
+                  <span id="profPhone" class="font-bold text-white text-base"
+                    >---</span
+                  >
+                </div>
+                <div class="flex justify-between items-center">
+                  <span
+                    class="text-gray-500 font-bold uppercase tracking-wider text-[9px]"
+                    >Age</span
+                  >
+                  <span id="profAge" class="font-bold text-white text-base"
+                    >---</span
+                  >
+                </div>
+              </div>
+              <button
+                onclick="logout()"
+                class="w-full py-4 text-red-400 font-bold border border-red-500/30 rounded-full hover:bg-red-500 hover:text-white transition-all text-sm tracking-widest uppercase"
+              >
+                SIGNOUT
+              </button>
+            </div>
+          </div>
+
+          
+        </div>
+
+        <div
+          id="toast"
+          class="fixed bottom-10 right-10 z-50 pointer-events-none transform translate-y-20 opacity-0 transition-all duration-500"
+        >
+          <div
+            id="toast-content"
+            class="px-6 py-4 rounded-xl glass-card flex items-center gap-4"
+          >
+            <div
+              id="toast-icon-bg"
+              class="w-10 h-10 rounded-lg flex items-center justify-center text-white shadow-lg"
+            >
+              <span id="toast-icon"></span>
+            </div>
+            <span id="toast-msg" class="font-bold text-white text-sm"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="dashboard-screen" class="hidden w-full min-h-screen flex flex-col relative z-20 items-center justify-center p-4 sm:p-12">
+      <div class="glass-card w-full max-w-4xl p-8 sm:p-12 rounded-[3rem] shadow-2xl relative overflow-hidden flex flex-col items-center text-center">
+        <!-- Floating elements -->
+        <div class="absolute -top-32 -right-32 w-64 h-64 bg-orange-500/20 blur-[100px] rounded-full pointer-events-none"></div>
+        <div class="absolute -bottom-32 -left-32 w-64 h-64 bg-blue-500/20 blur-[100px] rounded-full pointer-events-none"></div>
+        
+        <div class="relative z-10 w-full flex flex-col items-center anim-dash-reveal">
+          <svg class="w-16 h-16 text-white mb-6 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <h1 class="text-4xl md:text-5xl font-light tracking-wide text-white mb-2">
+            Welcome back, <span id="dashName" class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-orange-500">Member</span>
+          </h1>
+          <p class="text-gray-400 font-medium tracking-wide mb-10 max-w-lg">
+            Authentication successful. Your secure session is now active in the core network.
+          </p>
+
+          <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 text-left">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 shadow-inner hover:bg-white/10 transition-colors">
+              <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1 block">Corporate Email</span>
+              <span id="dashEmail" class="text-lg text-white font-medium break-all">---</span>
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 shadow-inner hover:bg-white/10 transition-colors">
+              <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1 block">Registered Phone</span>
+              <span id="dashPhone" class="text-lg text-white font-medium">---</span>
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 shadow-inner hover:bg-white/10 transition-colors">
+              <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1 block">Current Age</span>
+              <span id="dashAge" class="text-lg text-white font-medium">---</span>
+            </div>
+          </div>
+
+          <button onclick="logout()" class="px-8 py-3 rounded-full border border-red-500/30 text-red-400 font-bold text-sm tracking-widest uppercase hover:bg-red-500 hover:text-white transition-all shadow-[0_0_15px_rgba(239,68,68,0.1)] hover:shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+            Disconnect Session
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const ALLOWED_DOMAINS = [
+        "gmail.com",
+        "outlook.com",
+        "yahoo.com",
+        "hotmail.com",
+        "highspring.in"
+      ];
+
+      window.addEventListener("load", () => {
+        gsap.from(".anim-reveal", {
+          duration: 0.8,
+          y: 15,
+          opacity: 0,
+          stagger: 0.08,
+          ease: "power2.out",
+        });
+      });
+
+      function switchTab(type) {
+        const regBtn = document.getElementById("reg-tab");
+        const loginBtn = document.getElementById("login-tab");
+        const regSection = document.getElementById("register-section");
+        const loginSection = document.getElementById("login-section");
+        const profileSection = document.getElementById("profile-section");
+        const footerText = document.getElementById("footer-text");
+        const sideReg = document.getElementById("header-register");
+        const sideLogin = document.getElementById("header-login");
+        const mobTitle = document.getElementById("mobile-title");
+        const mobSubtitle = document.getElementById("mobile-subtitle");
+
+        if (type === "register") {
+          regBtn.classList.add("active-tab");
+          loginBtn.classList.remove("active-tab");
+          loginSection.classList.add("hidden");
+          profileSection.classList.add("hidden");
+          regSection.classList.remove("hidden");
+          footerText.innerHTML = `Ready to build the future? <button onclick="switchTab('register')" class="text-secondary font-black hover:underline underline-offset-4 ml-1">Submit Application</button>`;
+          gsap.to(sideLogin, {
+            opacity: 0,
+            duration: 0.3,
+            onComplete: () => {
+              sideLogin.classList.add("hidden");
+              sideReg.classList.remove("hidden");
+              gsap.to(sideReg, { opacity: 1, duration: 0.3 });
+            },
+          });
+          gsap.fromTo(
+            regSection,
+            { opacity: 0, y: 10 },
+            { opacity: 1, y: 0, duration: 0.4 },
+          );
+          mobTitle.innerText = "Join Our Team";
+          mobSubtitle.innerText = "Building the future together.";
+        } else {
+          loginBtn.classList.add("active-tab");
+          regBtn.classList.remove("active-tab");
+          regSection.classList.add("hidden");
+          profileSection.classList.add("hidden");
+          loginSection.classList.remove("hidden");
+          
+          gsap.to(sideReg, {
+            opacity: 0,
+            duration: 0.3,
+            onComplete: () => {
+              sideReg.classList.add("hidden");
+              sideLogin.classList.remove("hidden");
+              gsap.to(sideLogin, { opacity: 1, duration: 0.3 });
+            },
+          });
+          gsap.fromTo(
+            loginSection,
+            { opacity: 0, y: 10 },
+            { opacity: 1, y: 0, duration: 0.4 },
+          );
+          mobTitle.innerText = "Welcome Back";
+          mobSubtitle.innerText = "Access your team dashboard.";
+        }
+      }
+
+      function clearError(input) {
+        const container = input.nextElementSibling;
+        if (container && container.classList.contains("error-container"))
+          container.classList.remove("show");
+        input.classList.remove("input-error");
+      }
+
+      function validateField(input, type) {
+        const container = input.nextElementSibling;
+        const errorText = container
+          ? container.querySelector(".error-text")
+          : null;
+        let isValid = true;
+        let msg = "";
+        const nameRegex = /^[a-zA-Z]+$/;
+        const phoneRegex = /^\d{10}$/;
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const passRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        switch (type) {
+          case "name":
+            isValid = nameRegex.test(input.value);
+            msg = "Letters only";
+            break;
+          case "age":
+            const ageVal = parseInt(input.value);
+            if (isNaN(ageVal) || ageVal < 0 || ageVal > 150) {
+              isValid = false;
+              msg = "Between 0-150";
+            }
+            break;
+          case "phone":
+            isValid = phoneRegex.test(input.value);
+            msg = "10 Digits";
+            break;
+          case "email":
+            if (!emailRegex.test(input.value)) {
+              isValid = false;
+              msg = "Valid email?";
+            } else {
+              const domain = input.value.split("@")[1];
+              if (!ALLOWED_DOMAINS.includes(domain)) {
+                isValid = false;
+                msg = "Restricted";
+              }
+            }
+            break;
+          case "password":
+            isValid = passRegex.test(input.value);
+            msg = "Weak Pass";
+            break;
+        }
+
+        if (!isValid && input.value !== "") {
+          if (errorText) errorText.innerText = msg;
+          if (container) container.classList.add("show");
+          input.classList.add("input-error");
+          input.style.animation = "none";
+          input.offsetHeight;
+          input.style.animation = null;
+        } else {
+          if (container) container.classList.remove("show");
+          input.classList.remove("input-error");
+        }
+        return isValid;
+      }
+
+      function showToast(msg, type = "success") {
+        const toast = document.getElementById("toast");
+        const toastMsg = document.getElementById("toast-msg");
+        const toastIcon = document.getElementById("toast-icon");
+        const toastIconBg = document.getElementById("toast-icon-bg");
+        toastMsg.innerText = msg;
+        if (type === "success") {
+          toastIcon.innerHTML = `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>`;
+          toastIconBg.className =
+            "w-12 h-12 rounded-xl flex items-center justify-center bg-success text-white shadow-xl";
+        } else {
+          toastIcon.innerHTML = `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M6 18L18 6M6 6l12 12"></path></svg>`;
+          toastIconBg.className =
+            "w-12 h-12 rounded-xl flex items-center justify-center bg-red-600 text-white shadow-xl";
+        }
+        toast.classList.remove("translate-y-20", "opacity-0");
+        setTimeout(
+          () => toast.classList.add("translate-y-20", "opacity-0"),
+          3000,
+        );
+      }
+
+      async function handleRegister() {
+        const btn = document.getElementById("reg-submit-btn");
+        const fields = [
+          { id: "regFirstName", key: "firstName", type: "name" },
+          { id: "regLastName", key: "lastName", type: "name" },
+          { id: "regAge", key: "age", type: "age" },
+          { id: "regPhone", key: "phone", type: "phone" },
+          { id: "regEmail", key: "email", type: "email" },
+          { id: "regPassword", key: "password", type: "password" },
+        ];
+        let allValid = true;
+        const data = {};
+        fields.forEach((f) => {
+          const el = document.getElementById(f.id);
+          if (!validateField(el, f.type)) allValid = false;
+          if (el.value === "") {
+            allValid = false;
+            const c = el.nextElementSibling;
+            if (c) {
+              c.classList.add("show");
+              c.querySelector(".error-text").innerText = "Empty!";
+            }
+            el.classList.add("input-error");
+          }
+          data[f.key] = el.value;
+        });
+        if (!allValid) {
+          showToast("Review details.", "error");
+          return;
+        }
+
+        btn.disabled = true;
+        btn.innerText = "SUBMITTING...";
+        try {
+          const res = await fetch("/api/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          const result = await res.json();
+          if (result.success) {
+            showToast("Welcome!", "success");
+            setTimeout(() => switchTab("login"), 1500);
+          } else showToast(result.message, "error");
+        } catch (e) {
+          showToast("System storm.", "error");
+        } finally {
+          btn.disabled = false;
+          btn.innerText = "SUBMIT APPLICATION";
+        }
+      }
+
+      async function handleLogin() {
+        const btn = document.getElementById("login-submit-btn");
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPass").value;
+        if (!email || !password) {
+          showToast("Need keys.", "error");
+          return;
+        }
+
+        btn.disabled = true;
+        btn.innerText = "SIGNING IN...";
+        try {
+          const res = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+          });
+          const data = await res.json();
+          if (data.success) {
+            showToast("Success!", "success");
+            showProfile(data.user);
+          } else showToast("Mismatch.", "error");
+        } catch (e) {
+          showToast("Wood lost.", "error");
+        } finally {
+          btn.disabled = false;
+          btn.innerText = "SIGN IN TO HUB";
+        }
+      }
+
+      function showProfile(user) {
+        document.getElementById("main-container").classList.add("hidden");
+        document.getElementById("dashboard-screen").classList.remove("hidden");
+        
+        document.getElementById("dashName").innerText = `${user.firstName} ${user.lastName}`;
+        document.getElementById("dashEmail").innerText = user.email;
+        document.getElementById("dashPhone").innerText = user.phone;
+        document.getElementById("dashAge").innerText = user.age;
+        
+        gsap.fromTo(
+          document.getElementById("dashboard-screen"),
+          { opacity: 0, scale: 0.95 },
+          { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }
+        );
+        
+        gsap.from(".anim-dash-reveal", {
+          duration: 0.8,
+          y: 20,
+          opacity: 0,
+          delay: 0.2,
+          ease: "power2.out",
+        });
+      }
+
+      function logout() {
+        document.querySelectorAll("input").forEach((i) => {
+          i.value = "";
+          i.classList.remove("input-error");
+        });
+        document
+          .querySelectorAll(".error-container")
+          .forEach((c) => c.classList.remove("show"));
+          
+        document.getElementById("dashboard-screen").classList.add("hidden");
+        document.getElementById("main-container").classList.remove("hidden");
+        
+        switchTab("login");
+      }
+
+      function toggleTheme() {
+        document.body.classList.toggle("light-mode");
+        const icon = document.getElementById("theme-icon");
+        if (document.body.classList.contains("light-mode")) {
+          icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>`;
+        } else {
+          icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>`;
+        }
+      }
+    </script>
+  </body>
+</html>
