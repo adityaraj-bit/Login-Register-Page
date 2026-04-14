@@ -6,8 +6,8 @@ const { Storage } = require('@google-cloud/storage');
 const bcrypt = require('bcrypt');
 
 const app = express();
-const USE_GCP = true; // Set to true to use GCP Cloud Storage
-const ALLOWED_DOMAINS = ['gmail.com', 'outlook.com', 'yahoo.com', 'hotmail.com'];
+const USE_GCP = false; // Set to true to use GCP Cloud Storage
+const ALLOWED_DOMAINS = ['gmail.com', 'outlook.com', 'yahoo.com', 'hotmail.com', 'highspring.in'];
 
 let storage, bucket, file;
 if (USE_GCP) {
@@ -81,10 +81,10 @@ if (!nameRegex.test(firstName) || !nameRegex.test(lastName)) {
     return res.status(400).json({ success: false, message: `Only allowed for: ${ALLOWED_DOMAINS.join(', ')}` });
   }
 
-  // Relaxed Phone validation (Any 10 digits)
-  const phoneRegex = /^\d{10}$/;
+  // Support international phone format (Optional + followed by country code and digits)
+  const phoneRegex = /^\+?\d{10,15}$/;
   if (!phoneRegex.test(phone)) {
-    return res.status(400).json({ success: false, message: "10-digit phone number required" });
+    return res.status(400).json({ success: false, message: "Invalid phone number format" });
   }
 
   // Relaxed Age validation (0 to 150)
