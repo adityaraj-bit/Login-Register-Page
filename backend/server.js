@@ -6,7 +6,7 @@ const { Storage } = require('@google-cloud/storage');
 const bcrypt = require('bcrypt');
 
 const app = express();
-const USE_GCP = false; // Set to true to use GCP Cloud Storage
+const USE_GCP = true; // Set to true to use GCP Cloud Storage
 const ALLOWED_DOMAINS = ['gmail.com', 'outlook.com', 'yahoo.com', 'hotmail.com', 'highspring.in'];
 
 let storage, bucket, file;
